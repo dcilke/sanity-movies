@@ -29,7 +29,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build and Deploy
-        uses: dcilke/sanity-actions@v.1.0.4
+        uses: dcilke/sanity-actions@v1.0.4
         with:
           token: ${{ secrets.SANITY_AUTH_TOKEN }}
           deploy-graphql: true
