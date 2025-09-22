@@ -19,3 +19,4 @@ jobs:
         uses: dcilke/sanity-actions/actions/build-and-deploy@v1
         with:
           token: ${{ secrets.SANITY_AUTH_TOKEN }}
+          deploy-graphql: true
