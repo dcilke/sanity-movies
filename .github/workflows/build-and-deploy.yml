@@ -5,34 +5,22 @@ on:
     branches:
       - main
   pull_request:
-    branches:
-      - main
+    types: [opened, synchronize, reopened, ready_for_review]
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     permissions:
       contents: read
       deployments: write
+      pull-requests: write
+      statuses: write
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 9
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - uses: actions/checkout@v4
 
       - name: Build and Deploy
-        uses: dcilke/sanity-actions@v1.0.4
+        uses: dcilke/sanity-actions/build-and-deploy@v0.0.1
         with:
           token: ${{ secrets.SANITY_AUTH_TOKEN }}
-          deploy-graphql: true

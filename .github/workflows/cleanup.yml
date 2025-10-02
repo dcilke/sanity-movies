@@ -1,0 +1,21 @@
+name: Sanity Preview Cleanup
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Remove preview resources
+        uses: dcilke/sanity-actions/cleanup@v0.0.1
+        with:
+          token: ${{ secrets.SANITY_DEPLOY_TOKEN }}
