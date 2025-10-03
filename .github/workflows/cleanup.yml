@@ -22,6 +22,6 @@ jobs:
           node-version: "lts/*"
 
       - name: Remove preview resources
-        uses: dcilke/sanity-actions/cleanup@v0.0.44
+        uses: dcilke/sanity-actions/cleanup@v0.0.45
         with:
           token: ${{ secrets.SANITY_DEPLOY_TOKEN }}
