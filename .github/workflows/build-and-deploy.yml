@@ -45,6 +45,6 @@ jobs:
           pnpm install
 
       # Build and deploy
-      - uses: dcilke/sanity-actions/build-and-deploy@v0.0.44
+      - uses: dcilke/sanity-actions/build-and-deploy@v0.0.45
         with:
           token: ${{ secrets.SANITY_AUTH_TOKEN }}
