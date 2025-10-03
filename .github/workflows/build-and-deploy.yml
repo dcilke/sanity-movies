@@ -18,9 +18,33 @@ jobs:
       statuses: write
 
     steps:
+      # Setup
       - uses: actions/checkout@v4
 
-      - name: Build and Deploy
-        uses: dcilke/sanity-actions/build-and-deploy@v0.0.32
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      # Cache dependencies
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ${{ github.workspace }}/node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('${{ github.workspace }}/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      # Install action dependencies
+      - name: Install dependencies
+        shell: bash
+        run: |
+          pnpm install
+
+      # Build and deploy
+      - uses: dcilke/sanity-actions/build-and-deploy@v0.0.44
         with:
           token: ${{ secrets.SANITY_AUTH_TOKEN }}
