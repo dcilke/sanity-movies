@@ -21,6 +21,6 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Build and Deploy
-        uses: dcilke/sanity-actions/build-and-deploy@v0.0.28
+        uses: dcilke/sanity-actions/build-and-deploy@v0.0.29
         with:
           token: ${{ secrets.SANITY_AUTH_TOKEN }}
