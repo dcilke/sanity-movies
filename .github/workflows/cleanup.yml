@@ -43,4 +43,24 @@ jobs:
       - name: Remove preview resources
         uses: dcilke/sanity-actions/cleanup@v0.0.45
         with:
-          token: ${{ secrets.SANITY_DEPLOY_TOKEN }}
+          version: 9
+
+      # Cache dependencies
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ${{ github.workspace }}/node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('${{ github.workspace }}/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      # Install action dependencies
+      - name: Install dependencies
+        shell: bash
+        run: |
+          pnpm install
+
+      - name: Remove preview resources
+        uses: dcilke/sanity-actions/cleanup@v0.0.45
+        with:
+          token: ${{ secrets.SANITY_AUTH_TOKEN }}
